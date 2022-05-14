@@ -14,7 +14,11 @@ from consts.main import (
     PATH_HELP,
     SORT_HELP,
 )
-from consts.errors import ERROR_COULD_NOT_FIND_NAME_COL
+from consts.errors import (
+    ERROR_FILE_NOT_FOUND,
+    ERROR_INVALID_FILE,
+    ERROR_MODULES_NOT_FOUND,
+)
 try:
     from pandas import DataFrame, read_csv
     import rich
@@ -39,4 +43,10 @@ def main():
 
   args = parser.parse_args()
 
+  try:
+      hotels: DataFrame = read_csv(args.path, dtype=str)
+  except FileNotFoundError:
+      rich.print(f"[red]{ERROR_FILE_NOT_FOUND} '{args.path}'.")
+  except:
+      rich.print(f"[red]{ERROR_INVALID_FILE}")
 main()
