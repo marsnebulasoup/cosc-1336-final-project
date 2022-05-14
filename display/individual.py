@@ -30,7 +30,13 @@ def get_key(hotel: Series, key: str):
 
 
 def try_round(number, precision=None):
-    pass
+    try:
+        number = round(float(number), precision)
+    except:
+        pass
+    return number
+
+
 def generate_hotel_panel(hotel: Series):
     text = Text()
 
