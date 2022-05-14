@@ -5,11 +5,16 @@
 ######################
 
 from pandas import Series
+
 from consts.aggregate import (
     AMENITY_DOES_NOT_EXIST, 
     AMENITY_EXISTS,
     AMENITY_PATTERN,
+    ROOM_PATTERN,
+    STAR_PATTERN,
 )
+
+
 def get_most_freq_acc(series: Series, pattern: str):
     most_freq = -1
     if type(series) is Series and type(pattern) is str and pattern:
@@ -32,3 +37,11 @@ def get_amenity_existence(series: Series):
             exists = 0
 
     return exists
+
+
+def get_most_freq_stars(series: Series):
+    return int(get_most_freq_acc(series, STAR_PATTERN))
+
+
+def get_most_freq_rooms(series: Series):
+    return int(get_most_freq_acc(series, ROOM_PATTERN))
