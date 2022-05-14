@@ -7,6 +7,8 @@
 from pandas import DataFrame
 from rich.console import Console
 from rich.table import Table, Column
+from rich.panel import Panel
+from rich.columns import Columns
 from rich.text import Text
 from rich.padding import Padding
 
@@ -17,6 +19,7 @@ from consts.display import (
     STATS_STYLE,
     UNIQUE_HOTELS_TEXT,
 )
+from display.individual import generate_hotel_panel
 from display.ratings import generate_global_rating_stats
 
 
@@ -37,7 +40,16 @@ def generate_global_stats(hotel_info: DataFrame, amenities: set):
 
 
 def generate_individual_stats(hotel_info: DataFrame, amenities: set):
-    pass
+    columns = Columns(expand=True)
+
+    if type(hotel_info) is DataFrame and type(amenities) is set:
+        hotel_info.apply(
+            lambda row: columns.add_renderable(generate_hotel_panel(row)), axis=1
+        )
+
+    return columns
+
+
 def display(hotel_info: DataFrame, amenities: set):
     if type(hotel_info) is DataFrame and type(amenities) is set:
         global_stats = generate_global_stats(hotel_info, amenities)
