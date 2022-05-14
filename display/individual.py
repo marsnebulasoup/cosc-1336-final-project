@@ -19,7 +19,15 @@ from consts.display import SCORE_TEXT, STAR_TEXT
 
 
 def get_key(hotel: Series, key: str):
-    pass
+    value = DEFAULT_UNKNOWN_MSG
+
+    if type(hotel) is Series and type(key) is str:
+        if key in hotel:
+            if hotel[key] != -1:
+                value = hotel[key]
+
+    return value
+
 
 def try_round(number, precision=None):
     pass
