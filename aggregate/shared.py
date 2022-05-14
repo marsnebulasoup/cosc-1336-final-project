@@ -11,6 +11,7 @@ from consts.aggregate import (
     AMENITY_EXISTS,
     AMENITY_PATTERN,
     ROOM_PATTERN,
+    SCORE_PATTERN,
     STAR_PATTERN,
 )
 
@@ -45,3 +46,16 @@ def get_most_freq_stars(series: Series):
 
 def get_most_freq_rooms(series: Series):
     return int(get_most_freq_acc(series, ROOM_PATTERN))
+
+
+def get_mean_score(series: Series):
+    mean_score = -1
+
+    if type(series) is Series:
+        filtered_series = series[
+            series.astype(str).str.fullmatch(SCORE_PATTERN, na=False)  # type: ignore
+        ]
+        if len(filtered_series):
+            mean_score = filtered_series.astype(int).mean()
+
+    return mean_score
