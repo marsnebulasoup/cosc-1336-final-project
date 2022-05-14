@@ -10,7 +10,13 @@ from consts.display import AMENITY_TEXT
 
 
 def get_hotels_with_amenity(hotel_info: DataFrame, amenity: str):
-    pass
+    with_amenity = 0
+
+    if type(hotel_info) is DataFrame and type(amenity) is str:
+        if amenity in hotel_info:
+            with_amenity = len(hotel_info.query(f"`{amenity}` == 1"))
+
+    return with_amenity
 
 
 def generate_global_amenity_stats(hotel_info: DataFrame, amenities: set):
