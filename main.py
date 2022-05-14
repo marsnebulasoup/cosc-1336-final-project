@@ -7,18 +7,23 @@
 import sys
 import argparse
 from consts.aggregate import AMENITY_DETAILS_DEFAULT_COLUMNS, NAME_COL
+from aggregate.main import aggregate
 from consts.main import (
     AMENITY_HELP,
     DECSENDING_HELP,
     DESCRIPTION,
     PATH_HELP,
+    PROCESSING_TEXT,
     SORT_HELP,
 )
 from consts.errors import (
+    ERROR_COULD_NOT_FIND_NAME_COL,
     ERROR_FILE_NOT_FOUND,
     ERROR_INVALID_FILE,
     ERROR_MODULES_NOT_FOUND,
 )
+from display.main import display
+
 try:
     from pandas import DataFrame, read_csv
     import rich
@@ -49,4 +54,19 @@ def main():
       rich.print(f"[red]{ERROR_FILE_NOT_FOUND} '{args.path}'.")
   except:
       rich.print(f"[red]{ERROR_INVALID_FILE}")
+  else:
+      amenities = set(args.amenities)
+
+      with Progress(transient=True) as progress:
+          progress.add_task(PROCESSING_TEXT, total=None)
+          try:
+              hotel_details = aggregate(
+                  hotels, set(args.amenities), args.sort, not args.descending
+              )
+          except KeyError:
+              rich.print(f"[red]{ERROR_COULD_NOT_FIND_NAME_COL} '{NAME_COL}'.")
+              sys.exit()
+
+      display(hotel_details, amenities)
+
 main()
