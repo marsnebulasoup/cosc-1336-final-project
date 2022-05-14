@@ -6,8 +6,8 @@
 
 import sys
 import argparse
+
 from consts.aggregate import AMENITY_DETAILS_DEFAULT_COLUMNS, NAME_COL
-from aggregate.main import aggregate
 from consts.main import (
     AMENITY_HELP,
     DECSENDING_HELP,
@@ -22,7 +22,6 @@ from consts.errors import (
     ERROR_INVALID_FILE,
     ERROR_MODULES_NOT_FOUND,
 )
-from display.main import display
 
 try:
     from pandas import DataFrame, read_csv
@@ -31,6 +30,11 @@ try:
 except ImportError:
     print(ERROR_MODULES_NOT_FOUND)
     sys.exit()
+
+from aggregate.main import aggregate
+
+
+from display.main import display
 
 def main():
   parser = argparse.ArgumentParser(description=DESCRIPTION)
