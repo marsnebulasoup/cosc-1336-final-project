@@ -8,7 +8,13 @@ NAME_COL = "Name"
 SCORE_COL = "Score"
 STARS_COL = "Stars"
 REVIEW_COUNT_COL = "Review Count"
+ROOM_COL = "Rooms"
+
 MIN_REVIEWS = 1  # will keep hotels w/ review count > MIN_REVIEWS (not >=)
+
+AMENITY_PATTERN = "^(YES|NO)$"
+SCORE_PATTERN = STAR_PATTERN = "^[1-5]$"
+ROOM_PATTERN = "^\d+$"
 
 AMENITY_DETAILS_DEFAULT_COLUMNS = [
     "Pool",
