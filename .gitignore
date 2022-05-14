@@ -1,0 +1,6 @@
+*
+!**/
+!*.py
+!*.csv
+!*.md
+!*.gitignore
