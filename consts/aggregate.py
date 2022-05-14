@@ -5,6 +5,9 @@
 ######################
 
 NAME_COL = "Name"
+SCORE_COL = "Score"
+STARS_COL = "Stars"
+REVIEW_COUNT_COL = "Review Count"
 MIN_REVIEWS = 1  # will keep hotels w/ review count > MIN_REVIEWS (not >=)
 
 AMENITY_DETAILS_DEFAULT_COLUMNS = [
