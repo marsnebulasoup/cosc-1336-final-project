@@ -9,7 +9,7 @@ INDIVIDUAL_STATS_TITLE = "Individual Statistics"
 STATS_STYLE ="bold cyan"
 
 
-UNIQUE_HOTELS_TEXT = "unique hotels"
+UNIQUE_HOTELS_TEXT = "unique hotel(s)"
 SCORE_TEXT = STAR_TEXT = "/5"
 HIGHEST_RATED_TEXT = "Highest rated hotel(s): "
 FIVE_STAR_TEXT = "Number of five-star hotels: "
