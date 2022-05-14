@@ -21,6 +21,7 @@ from consts.errors import (
     ERROR_FILE_NOT_FOUND,
     ERROR_INVALID_FILE,
     ERROR_MODULES_NOT_FOUND,
+    ERROR_TOO_LITTLE_DATA,
 )
 
 try:
@@ -69,6 +70,9 @@ def main():
               )
           except KeyError:
               rich.print(f"[red]{ERROR_COULD_NOT_FIND_NAME_COL} '{NAME_COL}'.")
+              sys.exit()
+          except ValueError:
+              rich.print(f"[red]{ERROR_TOO_LITTLE_DATA}")
               sys.exit()
 
       display(hotel_details, amenities)

@@ -15,7 +15,7 @@ from consts.aggregate import (
     RATING_DETAILS_DEFAULT_COLUMNS,
     ROOM_DETAILS_DEFAULT_COLUMNS,
 )
-from consts.errors import ERROR_COULD_NOT_FIND_NAME_COL
+from consts.errors import ERROR_COULD_NOT_FIND_NAME_COL, ERROR_TOO_LITTLE_DATA
 
 
 def aggregate(hotels: DataFrame, amenities: set, sortBy: str, ascending: bool):
@@ -42,6 +42,9 @@ def aggregate(hotels: DataFrame, amenities: set, sortBy: str, ascending: bool):
             .filter(lambda reviews: len(reviews) > MIN_REVIEWS)
             .groupby(NAME_COL, sort=False)
         )  # have to regroup as .filter combines the groups
+
+        if hotels_grouped.obj.empty:
+            raise ValueError(ERROR_TOO_LITTLE_DATA)
 
         amenity_details = get_amenity_details(hotels_grouped, amenities)
         rating_details = get_rating_details(hotels_grouped)
