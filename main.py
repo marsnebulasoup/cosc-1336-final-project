@@ -10,8 +10,10 @@ import argparse
 from consts.aggregate import (
     AMENITY_DETAILS_DEFAULT_COLUMNS,
     NAME_COL,
-    RATING_DETAILS_DEFAULT_COLUMNS,
-    ROOM_DETAILS_DEFAULT_COLUMNS,
+    REVIEW_COUNT_COL,
+    ROOM_COL,
+    SCORE_COL,
+    STARS_COL,
 )
 from consts.main import (
     AMENITY_HELP,
@@ -71,11 +73,7 @@ def main():
     except:
         rich.print(f"[red]{ERROR_INVALID_FILE}")
     else:
-        columns = [
-            NAME_COL,
-            *RATING_DETAILS_DEFAULT_COLUMNS,
-            *ROOM_DETAILS_DEFAULT_COLUMNS,
-        ]
+        columns = [NAME_COL, SCORE_COL, STARS_COL, ROOM_COL, REVIEW_COUNT_COL]
         amenities = {amenity for amenity in args.amenities if amenity not in columns}
 
         with Progress(transient=True) as progress:
