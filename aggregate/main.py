@@ -11,30 +11,19 @@ from aggregate.rooms import get_room_details
 
 from consts.aggregate import (
     MIN_REVIEWS,
-    NAME_COL,
-    RATING_DETAILS_DEFAULT_COLUMNS,
-    ROOM_DETAILS_DEFAULT_COLUMNS,
+    NAME_COL
 )
 from consts.errors import ERROR_COULD_NOT_FIND_NAME_COL, ERROR_TOO_LITTLE_DATA
 
 
-def aggregate(hotels: DataFrame, amenities: set, sortBy: str, ascending: bool):
+def aggregate(hotels: DataFrame, columns: list, amenities: set, sortBy: str, ascending: bool):
     merged = DataFrame()
 
-    if type(hotels) is DataFrame and type(amenities) is set:
-        amenities = {amenity for amenity in amenities if amenity != NAME_COL}
-
+    if type(hotels) is DataFrame and type(columns) is list and type(amenities) is set:
         if NAME_COL not in hotels:
             raise KeyError(f"{ERROR_COULD_NOT_FIND_NAME_COL} '{NAME_COL}'.")
 
-        all_columns = Index(
-            [
-                NAME_COL,
-                *amenities,
-                *RATING_DETAILS_DEFAULT_COLUMNS,
-                *ROOM_DETAILS_DEFAULT_COLUMNS,
-            ]
-        )
+        all_columns = Index([*columns, *amenities])
 
         hotels_grouped = (
             hotels.reindex(columns=all_columns)  # type: ignore
