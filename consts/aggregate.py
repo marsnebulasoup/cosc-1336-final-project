@@ -24,8 +24,6 @@ AMENITY_DETAILS_DEFAULT_COLUMNS = [
     "Casino",
     "Free internet",
 ]
-RATING_DETAILS_DEFAULT_COLUMNS = ["Score", "Stars", "Review Count"]
-ROOM_DETAILS_DEFAULT_COLUMNS = ["Rooms"]
 
 AMENITY_EXISTS = "YES"
 AMENITY_DOES_NOT_EXIST = "NO"
