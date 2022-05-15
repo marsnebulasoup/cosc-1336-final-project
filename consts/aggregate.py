@@ -7,7 +7,7 @@
 NAME_COL = "Name"
 SCORE_COL = "Score"
 STARS_COL = "Stars"
-REVIEW_COUNT_COL = "Review Count"
+REVIEW_COUNT_COL = "Reviews"
 ROOM_COL = "Rooms"
 
 MIN_REVIEWS = 1  # will keep hotels w/ review count > MIN_REVIEWS (not >=)
