@@ -7,11 +7,17 @@
 import sys
 import argparse
 
-from consts.aggregate import AMENITY_DETAILS_DEFAULT_COLUMNS, NAME_COL, RATING_DETAILS_DEFAULT_COLUMNS, ROOM_DETAILS_DEFAULT_COLUMNS
+from consts.aggregate import (
+    AMENITY_DETAILS_DEFAULT_COLUMNS,
+    NAME_COL,
+    RATING_DETAILS_DEFAULT_COLUMNS,
+    ROOM_DETAILS_DEFAULT_COLUMNS,
+)
 from consts.main import (
     AMENITY_HELP,
     DECSENDING_HELP,
     DESCRIPTION,
+    LOADING_FILE_TEXT,
     PATH_HELP,
     PROCESSING_TEXT,
     SORT_HELP,
@@ -49,15 +55,17 @@ def main():
         help=AMENITY_HELP,
         default=AMENITY_DETAILS_DEFAULT_COLUMNS,
     )
-    parser.add_argument("-s", "--sort", help=SORT_HELP,
-                        default=NAME_COL, type=str)
-    parser.add_argument("-desc", "--descending",
-                        help=DECSENDING_HELP, action="store_true")
+    parser.add_argument("-s", "--sort", help=SORT_HELP, default=NAME_COL, type=str)
+    parser.add_argument(
+        "-desc", "--descending", help=DECSENDING_HELP, action="store_true"
+    )
 
     args = parser.parse_args()
 
     try:
-        hotels: DataFrame = read_csv(args.path, dtype=str)
+        with Progress(transient=True) as progress:
+            progress.add_task(LOADING_FILE_TEXT, total=None)
+            hotels: DataFrame = read_csv(args.path, dtype=str)
     except FileNotFoundError:
         rich.print(f"[red]{ERROR_FILE_NOT_FOUND} '{args.path}'.")
     except:
@@ -66,11 +74,9 @@ def main():
         columns = [
             NAME_COL,
             *RATING_DETAILS_DEFAULT_COLUMNS,
-            *ROOM_DETAILS_DEFAULT_COLUMNS
+            *ROOM_DETAILS_DEFAULT_COLUMNS,
         ]
-        amenities = {
-            amenity for amenity in args.amenities if amenity not in columns
-        }
+        amenities = {amenity for amenity in args.amenities if amenity not in columns}
 
         with Progress(transient=True) as progress:
             progress.add_task(PROCESSING_TEXT, total=None)
@@ -79,8 +85,7 @@ def main():
                     hotels, columns, amenities, args.sort, not args.descending
                 )
             except KeyError:
-                rich.print(
-                    f"[red]{ERROR_COULD_NOT_FIND_NAME_COL} '{NAME_COL}'.")
+                rich.print(f"[red]{ERROR_COULD_NOT_FIND_NAME_COL} '{NAME_COL}'.")
                 sys.exit()
             except ValueError:
                 rich.print(f"[red]{ERROR_TOO_LITTLE_DATA}")

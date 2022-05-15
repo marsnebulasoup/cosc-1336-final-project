@@ -11,5 +11,5 @@ SORT_HELP = "Name of a column to sort by. Will sort in ascending order by defaul
 DECSENDING_HELP = "Sorts in decsending order."
 
 
-
-PROCESSING_TEXT = "[cyan]Processing"
+LOADING_FILE_TEXT = "[green]Loading File"
+PROCESSING_TEXT = "[cyan]Processing Data"
