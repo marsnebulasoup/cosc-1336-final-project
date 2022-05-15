@@ -73,11 +73,7 @@ def main():
     except:
         rich.print(f"[red]{ERROR_INVALID_FILE}")
     else:
-<<<<<<< HEAD
         columns = [NAME_COL, SCORE_COL, STARS_COL, ROOM_COL, REVIEW_COUNT_COL]
-=======
-        columns = [NAME_COL, SCORE_COL, STARS_COL, ROOM_COL]
->>>>>>> 0e31b17a51c21e4374aca4b18ba40618f8318baa
         amenities = {amenity for amenity in args.amenities if amenity not in columns}
 
         with Progress(transient=True) as progress:
