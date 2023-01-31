@@ -3,7 +3,8 @@
 ## About
 Simple command-line application to processes CSV files with hotel reviews and output useful statistics for them.
 
-```
+```bash
+$> py main.py hotel-reviews.csv
 
    Global Statistics                  Individual Statistics
 
